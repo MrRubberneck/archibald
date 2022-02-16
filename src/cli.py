@@ -2,6 +2,7 @@
 
 import click
 import re
+from menu import menu
 
 
 @click.command()
@@ -26,3 +27,10 @@ def input_file(file):
 
         else:
             print("Incorrect file extension")
+
+
+@click.option("--menu", help="Launch menu with options to work with the specified file")
+
+
+
+
