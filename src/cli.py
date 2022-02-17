@@ -2,8 +2,7 @@
 
 import click
 import re
-from menu import menu
-
+import menu_interface
 
 @click.command()
 @click.option("--file", help="Specify the archimate file here")
@@ -19,17 +18,13 @@ def input_file(file):
 
             cont_reg = re.compile(r"<archimate:model")
             if cont_reg.findall(f.read()) == ["<archimate:model"]:
-                pass
-
                 # contents check passed
+                menu_interface.main()
             else:
                 print("File contents are incorrect.")
 
         else:
             print("Incorrect file extension")
-
-
-@click.option("--menu", help="Launch menu with options to work with the specified file")
 
 
 
