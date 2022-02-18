@@ -12,11 +12,15 @@ def main():
 
         def process_matches(pattern):
             """The procedure for matches in the following functions"""
+
+
             result = ''
+            counter = 0
             for child in pattern:
                 result += str(child.attrib) + '\n'
+                counter += 1
             pu = PromptUtils(Screen())
-            pu.println(result)
+            pu.println(result + '\nNumber of matches: ', counter)
             pu.enter_to_continue()
 
         def display_business_services():
@@ -31,6 +35,8 @@ def main():
             """Display all of the "X", where X is any archimate model object"""
             query = input("Pass the object you wish to find: ")
             pattern = root.xpath(f"//element[@* = 'archimate:{query}']")
+            if 'archimate' not in pattern:
+                pattern = root.xpath(f"//child[@* = 'archimate:{query}']")
             process_matches(pattern)
 
         menu = ConsoleMenu(
