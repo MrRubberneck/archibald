@@ -17,7 +17,7 @@ def main():
             result = ''
             counter = 0
             for child in pattern:
-                result += str(child.attrib) + '\n'
+                result += str(child.attrib)[45:] + '\n---------------------------------\n'
                 counter += 1
             pu = PromptUtils(Screen())
             pu.println(result + '\nNumber of matches: ', counter)
