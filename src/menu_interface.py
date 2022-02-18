@@ -27,6 +27,12 @@ def main():
             pattern = root.xpath("//element[@* = 'archimate:BusinessRole']")
             process_matches(pattern)
 
+        def show_x_object():
+            """Display all of the "X", where X is any archimate model object"""
+            query = input("Pass the object you wish to find: ")
+            pattern = root.xpath(f"//element[@* = 'archimate:{query}']")
+            process_matches(pattern)
+
         menu = ConsoleMenu(
             "Archibald", "A command line tool for inspecting archimate files."
         )
@@ -37,7 +43,11 @@ def main():
         business_roles = FunctionItem(
             "Show Business Roles", display_business_roles
         )
+        x_object = FunctionItem(
+            "Enter an object to find", show_x_object
+        )
 
         menu.append_item(business_services)
         menu.append_item(business_roles)
+        menu.append_item(x_object)
         menu.show()
