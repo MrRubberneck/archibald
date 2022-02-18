@@ -9,16 +9,9 @@ def main():
     with open(cli.exp_file) as f:
         file = f.read()
         root = etree.XML(bytes(file, encoding='utf8'))
-        def displ_dupl():
-            # display duplicate entries
 
-            pu = PromptUtils(Screen())
-
-            pu.enter_to_continue()
-
-        def displ_bus_serv():
-            pattern = root.xpath("//element[@* = 'archimate:BusinessService']")
-
+        def process_matches(pattern):
+            """The procedure for matches in the following functions"""
             result = ''
             for child in pattern:
                 result += str(child.attrib) + '\n'
@@ -26,17 +19,25 @@ def main():
             pu.println(result)
             pu.enter_to_continue()
 
+        def display_business_services():
+            pattern = root.xpath("//element[@* = 'archimate:BusinessService']")
+            process_matches(pattern)
+
+        def display_business_roles():
+            pattern = root.xpath("//element[@* = 'archimate:BusinessRole']")
+            process_matches(pattern)
+
         menu = ConsoleMenu(
             "Archibald", "A command line tool for inspecting archimate files."
         )
 
-        display_duplicate = FunctionItem(
-            "List any duplicates", displ_dupl
-        )
         business_services = FunctionItem(
-            "Display Business Services", displ_bus_serv
+            "Display Business Services", display_business_services
+        )
+        business_roles = FunctionItem(
+            "Show Business Roles", display_business_roles
         )
 
         menu.append_item(business_services)
-        menu.append_item(display_duplicate)
+        menu.append_item(business_roles)
         menu.show()
