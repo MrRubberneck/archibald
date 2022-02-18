@@ -33,10 +33,8 @@ def main():
 
         def show_x_object():
             """Display all of the "X", where X is any archimate model object"""
-            query = input("Pass the object you wish to find: ")
-            pattern = root.xpath(f"//element[@* = 'archimate:{query}']")
-            if 'archimate' not in pattern:
-                pattern = root.xpath(f"//child[@* = 'archimate:{query}']")
+            query = input("Pass the object you wish to find(like DiagramObject): ")
+            pattern = root.xpath(f"//child[@* = 'archimate:{query}']")
             process_matches(pattern)
 
         menu = ConsoleMenu(
