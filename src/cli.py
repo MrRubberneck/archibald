@@ -4,6 +4,8 @@ import click
 import re
 import menu_interface
 
+
+exp_file = ''
 @click.command()
 @click.option("--file", help="Specify the archimate file here")
 def input_file(file):
@@ -11,7 +13,8 @@ def input_file(file):
 
     with open(file) as f:
         # check file extension and contents for correctness
-
+        global exp_file
+        exp_file = file
         ext_reg = re.compile(r"\S+.archimate")
         if ext_reg.match(file) is not None:
             # file extension check passed
@@ -25,7 +28,5 @@ def input_file(file):
 
         else:
             print("Incorrect file extension")
-
-
 
 
