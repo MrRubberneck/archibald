@@ -36,7 +36,6 @@ def main():
             query = input("Pass the object you wish to find(like DiagramObject): ")
             pattern = root.xpath(f"//element[@* = 'archimate:{query}']")
             if not pattern:
-                print("Lalala")
                 pattern = root.xpath(f"//child[@* = 'archimate:{query}']")
             process_matches(pattern)
 
