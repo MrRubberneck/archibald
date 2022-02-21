@@ -23,15 +23,15 @@ def main():
             pu.println(result + '\nNumber of matches: ', counter)
             pu.enter_to_continue()
 
-        def display_business_services():
+        def list_business_services():
             pattern = root.xpath("//element[@* = 'archimate:BusinessService']")
             process_matches(pattern)
 
-        def display_business_roles():
+        def list_business_roles():
             pattern = root.xpath("//element[@* = 'archimate:BusinessRole']")
             process_matches(pattern)
 
-        def show_x_object():
+        def list_by_type():
             """Display all of the "X", where X is any archimate model object"""
 
             query = input("Pass the object you wish to find(like DiagramObject): \n")
@@ -78,13 +78,13 @@ def main():
         )
 
         business_services = FunctionItem(
-            "Display Business Services", display_business_services
+            "List Business Services", list_business_services
         )
         business_roles = FunctionItem(
-            "Show Business Roles", display_business_roles
+            "List Business Roles", list_business_roles
         )
-        x_object = FunctionItem(
-            "Search by name", show_x_object
+        by_type = FunctionItem(
+            "List by type", list_by_type
         )
         matched_duplicates = FunctionItem(
             "Show matched duplicates - to be implemented", show_matched_duplicates
@@ -92,6 +92,6 @@ def main():
 
         menu.append_item(business_services)
         menu.append_item(business_roles)
-        menu.append_item(x_object)
+        menu.append_item(by_type)
         menu.append_item(matched_duplicates)
         menu.show()
