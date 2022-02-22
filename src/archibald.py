@@ -1,6 +1,7 @@
 # Archibald, a command line tool for inspecting archimate files
 
 import cli
+import menu
 
 
 def main():

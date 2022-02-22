@@ -1,13 +1,20 @@
 # CLI for Archibald written in Click
 
-import click
 import re
-import menu_interface
+import click
+#import menu_interface
 
 
-exp_file = ''
+EXP_FILE = ''
+
 @click.command()
 @click.option("--file", help="Specify the archimate file here")
+
+# accept the file
+# check if the file extension is correct
+# check if contents are correct
+
+
 def input_file(file):
     """Accept the file, check if it's the right one"""
 
