@@ -4,10 +4,7 @@ import click
 import re
 import menu
 
-FILE = ''
-
 regex_for_checking_file_extension = re.compile(r"\S+.archimate")
-regex_for_checking_file_contents = re.compile(r"<archimate:model")
 
 
 def is_correct_extension(file_name):
@@ -19,7 +16,7 @@ def is_correct_extension(file_name):
 
 
 def is_correct_contents(file_contents):
-    if regex_for_checking_file_contents.findall(file_contents) is not None:
+    if "<archimate:model" in file_contents:
         return 'yes'
     else:
         print("Incorrect file contents ")
@@ -29,11 +26,10 @@ def is_correct_contents(file_contents):
 @click.command()
 @click.option("--file", help="Specify the archimate file")
 def process_file(file):
-    global FILE
-    FILE = file
-    with open(file) as f:
+
+    with open(file) as file_contents:
         if is_correct_extension(file) == 'yes':
-            if is_correct_contents(f.read()) == 'yes':
+            if is_correct_contents(file_contents.read()) == 'yes':
                 menu.main()
 
 
