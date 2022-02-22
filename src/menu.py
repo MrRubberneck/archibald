@@ -6,7 +6,7 @@ from lxml import etree
 
 
 def main():
-    with open(cli.exp_file) as f:
+    with open(cli.EXP_FILE) as f:
         file = f.read()
         root = etree.XML(bytes(file, encoding='utf8'))
 

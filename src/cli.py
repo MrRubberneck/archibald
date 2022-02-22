@@ -2,7 +2,7 @@
 
 import re
 import click
-#import menu_interface
+import menu
 
 
 EXP_FILE = ''
@@ -20,8 +20,8 @@ def input_file(file):
 
     with open(file) as f:
         # check file extension and contents for correctness
-        global exp_file
-        exp_file = file
+        global EXP_FILE
+        EXP_FILE = file
         ext_reg = re.compile(r"\S+.archimate")
         if ext_reg.match(file) is not None:
             # file extension check passed
@@ -29,7 +29,7 @@ def input_file(file):
             cont_reg = re.compile(r"<archimate:model")
             if cont_reg.findall(f.read()) == ["<archimate:model"]:
                 # contents check passed
-                menu_interface.main()
+                menu.main()
             else:
                 print("File contents are incorrect.")
 
