@@ -3,10 +3,11 @@ import sys
 from consolemenu import *
 from consolemenu.items import *
 from lxml import etree
+import archibald
 
 
 def main():
-    with open(cli.EXP_FILE) as f:
+    with open("../tests/fretardos-pizza.archimate") as f:
         file = f.read()
         root = etree.XML(bytes(file, encoding='utf8'))
 
