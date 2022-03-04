@@ -2,7 +2,9 @@
 
 import click
 import re
-import new_menu
+import menu
+
+file_path = ''
 
 regex_for_checking_file_extension = re.compile(r"\S+.archimate")
 
@@ -22,7 +24,9 @@ def process_file(file):
         file_contents = f.read()
     if is_correct_extension(file):
         if is_correct_contents(file_contents):
-            new_menu.main()
+            global file_path
+            file_path = file
+            menu.main()
 
         else:
             print("Invalid file contents")
