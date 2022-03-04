@@ -2,7 +2,7 @@
 
 import click
 import re
-import menu
+import new_menu
 
 regex_for_checking_file_extension = re.compile(r"\S+.archimate")
 
@@ -12,7 +12,7 @@ def is_correct_extension(file_name):
 
 
 def is_correct_contents(file_contents):
-    return "<archimate:mode is" in file_contents
+    return "<archimate:mode" in file_contents
 
 
 @click.command()
@@ -22,7 +22,7 @@ def process_file(file):
         file_contents = f.read()
     if is_correct_extension(file):
         if is_correct_contents(file_contents):
-            menu.menu()
+            new_menu.main()
 
         else:
             print("Invalid file contents")
