@@ -3,8 +3,7 @@
 import click
 import re
 import menu
-
-file_path = ''
+import state
 
 regex_for_checking_file_extension = re.compile(r"\S+.archimate")
 
@@ -20,12 +19,11 @@ def is_correct_contents(file_contents):
 @click.command()
 @click.option("--file", help="Specify the archimate file")
 def process_file(file):
-    with open(file) as f:
+    state.filepath = file
+    with open(state.filepath) as f:
         file_contents = f.read()
-    if is_correct_extension(file):
+    if is_correct_extension(state.filePath):
         if is_correct_contents(file_contents):
-            global file_path
-            file_path = file
             menu.main()
 
         else:
