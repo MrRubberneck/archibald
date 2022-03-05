@@ -5,26 +5,35 @@ from lxml import etree
 import state
 
 
-def process_matches(pattern):
+def produce_output(pattern):
     """The procedure for matches in the following functions"""
     result = ''
     counter = 0
     for child in pattern:
         result += str(child.attrib)[45:] + '\n---------------------------------\n'
         counter += 1
+    return result
+
+
+def display_output(result):
     pu = PromptUtils(Screen())
-    pu.println(result + '\nNumber of matches: ', counter)
+    pu.println(result + '\nNumber of matches: ')
     pu.enter_to_continue()
+
+
+def display_to_user(pattern):
+    output = produce_output(pattern)
+    display_output(output)
 
 
 def list_business_services():
     pattern = state.root.xpath("//element[@* = 'archimate:BusinessService']")
-    process_matches(pattern)
+    display_to_user(pattern)
 
 
 def list_business_roles():
     pattern = state.root.xpath("//element[@* = 'archimate:BusinessRole']")
-    process_matches(pattern)
+    display_to_user(pattern)
 
 
 def list_by_type():
@@ -34,7 +43,7 @@ def list_by_type():
     pattern = state.root.xpath(f"//element[@* = 'archimate:{query}']")
     if not pattern:
         pattern = state.root.xpath(f"//child[@* = 'archimate:{query}']")
-    process_matches(pattern)
+    display_to_user(pattern)
 
 
 def show_matched_duplicates():
