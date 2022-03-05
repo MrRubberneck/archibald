@@ -19,10 +19,10 @@ def is_correct_contents(file_contents):
 @click.command()
 @click.option("--file", help="Specify the archimate file")
 def process_file(file):
-    state.filepath = file
-    with open(state.filepath) as f:
+    state.file_path = file
+    with open(state.file_path) as f:
         file_contents = f.read()
-    if is_correct_extension(state.filePath):
+    if is_correct_extension(state.file_path):
         if is_correct_contents(file_contents):
             menu.main()
 

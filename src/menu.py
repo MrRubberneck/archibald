@@ -2,14 +2,11 @@ import sys
 from consolemenu import *
 from consolemenu.items import *
 from lxml import etree
-import archibald
-
+import state
 
 
 def process_matches(pattern):
     """The procedure for matches in the following functions"""
-
-
     result = ''
     counter = 0
     for child in pattern:
@@ -19,21 +16,24 @@ def process_matches(pattern):
     pu.println(result + '\nNumber of matches: ', counter)
     pu.enter_to_continue()
 
+
 def list_business_services():
-    pattern = root.xpath("//element[@* = 'archimate:BusinessService']")
+    pattern = state.root.xpath("//element[@* = 'archimate:BusinessService']")
     process_matches(pattern)
 
+
 def list_business_roles():
-    pattern = root.xpath("//element[@* = 'archimate:BusinessRole']")
+    pattern = state.root.xpath("//element[@* = 'archimate:BusinessRole']")
     process_matches(pattern)
+
 
 def list_by_type():
     """Display all of the "X", where X is any archimate model object"""
 
     query = input("Pass the object you wish to find(like DiagramObject): \n")
-    pattern = root.xpath(f"//element[@* = 'archimate:{query}']")
+    pattern = state.root.xpath(f"//element[@* = 'archimate:{query}']")
     if not pattern:
-        pattern = root.xpath(f"//child[@* = 'archimate:{query}']")
+        pattern = state.root.xpath(f"//child[@* = 'archimate:{query}']")
     process_matches(pattern)
 
 
@@ -43,10 +43,10 @@ def show_matched_duplicates():
     slightly different (lowercase/uppercase/mixed case, or typo) names."""
 
     query = input("Enter duplicates to find: ")
-    pattern = root.xpath(f"//element[@* = 'archimate:{query}']")
+    pattern = state.root.xpath(f"//element[@* = 'archimate:{query}']")
 
     if not pattern:
-        pattern = root.xpath(f"//child[@* = 'archimate:{query}']")
+        pattern = state.root.xpath(f"//child[@* = 'archimate:{query}']")
 
     result = ''
     counter = 0
@@ -69,9 +69,9 @@ def show_matched_duplicates():
 
 
 def main():
-    with open(archibald.file_path) as f:
+    with open(state.file_path) as f:
         file = f.read()
-    root = etree.XML(bytes(file, encoding='utf8'))
+    state.root = etree.XML(bytes(file, encoding='utf8'))
 
     menu = ConsoleMenu("Archibald", "A command line tool for inspecting archimate files.")
     business_services = FunctionItem("List Business Services", list_business_services)
