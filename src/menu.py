@@ -12,18 +12,18 @@ def produce_output(pattern):
     for child in pattern:
         result += str(child.attrib)[45:] + '\n---------------------------------\n'
         counter += 1
-    return result
+    return result, counter
 
 
-def display_output(result):
+def display_output(result, counter):
     pu = PromptUtils(Screen())
-    pu.println(result + '\nNumber of matches: ')
+    pu.println(result + '\nNumber of matches: ' + str(counter))
     pu.enter_to_continue()
 
 
 def display_to_user(pattern):
-    output = produce_output(pattern)
-    display_output(output)
+    output, counter = produce_output(pattern)
+    display_output(output, counter)
 
 
 def list_business_services():
@@ -37,7 +37,7 @@ def list_business_roles():
 
 
 def list_by_type():
-    """Display all of the "X", where X is any archimate model object"""
+    """Display all the "X", where X is any archimate model object"""
 
     query = input("Pass the object you wish to find(like DiagramObject): \n")
     pattern = state.root.xpath(f"//element[@* = 'archimate:{query}']")
@@ -47,33 +47,20 @@ def list_by_type():
 
 
 def show_matched_duplicates():
-    """Show all of the matched duplicates. A matched duplicate is one with
+    """Show all the matched duplicates. A matched duplicate is one with
     the same object type (business service for example), and identical or
     slightly different (lowercase/uppercase/mixed case, or typo) names."""
 
     query = input("Enter duplicates to find: ")
     pattern = state.root.xpath(f"//element[@* = 'archimate:{query}']")
-
     if not pattern:
         pattern = state.root.xpath(f"//child[@* = 'archimate:{query}']")
-
-    result = ''
-    counter = 0
-    for child in pattern:
-        result += str(child.attrib)[45:] + '\n---------------------------------\n'
-        counter += 1
-
-    declare_duplicates = False
-    if counter > 1:
-        declare_duplicates = True
-
+    _, counter = produce_output(pattern)
     pu = PromptUtils(Screen())
-
-    if declare_duplicates == True:
+    if counter > 1:
         pu.println(counter," duplicates have been found")
     else:
         print("No duplicates found")
-
     pu.enter_to_continue()
 
 
