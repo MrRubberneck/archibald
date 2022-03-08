@@ -3,6 +3,8 @@ from consolemenu import *
 from consolemenu.items import *
 from lxml import etree
 import state
+import re
+import collections
 
 
 def produce_output(pattern):
@@ -55,12 +57,27 @@ def show_matched_duplicates():
     pattern = state.root.xpath(f"//element[@* = 'archimate:{query}']")
     if not pattern:
         pattern = state.root.xpath(f"//child[@* = 'archimate:{query}']")
-    _, counter = produce_output(pattern)
     pu = PromptUtils(Screen())
-    if counter > 1:
-        pu.println(counter," duplicates have been found")
+
+
+    result = ""
+    result_after_regex = []
+    counter = 0
+
+    for child in pattern:
+        result += str(child.attrib)[45:] + '\n---------------------------------\n'
+        counter += 1
+
+    regex_pattern = re.compile(r"'name': '.+',")
+    for i in regex_pattern.findall(result):
+        result_after_regex.append(i[9:-2].lower())
+
+    duplicates = [item for item, count in collections.Counter(result_after_regex).items() if count > 1]
+    if duplicates:
+        print("Duplicates: ", [i for i in duplicates])
     else:
-        print("No duplicates found")
+        print("Haven't found any duplicates.")
+
     pu.enter_to_continue()
 
 
