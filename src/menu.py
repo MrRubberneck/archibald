@@ -74,7 +74,7 @@ def show_matched_duplicates():
 
     duplicates = [item for item, count in collections.Counter(result_after_regex).items() if count > 1]
     if duplicates:
-        print("Duplicates: ", [i for i in duplicates])
+        print("Duplicates: ", *duplicates, sep='\n')
     else:
         print("Haven't found any duplicates.")
 
