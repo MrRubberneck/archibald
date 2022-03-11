@@ -72,7 +72,7 @@ def show_matched_duplicates():
     for i in regex_pattern.findall(result):
         result_after_regex.append(i[9:-2].lower())
 
-    duplicates = [item for item, count in collections.Counter(result_after_regex).items() if count > 1]
+    duplicates = [(item, count) for item, count in collections.Counter(result_after_regex).items() if count > 1]
     if duplicates:
         print("Duplicates: ", *duplicates, sep='\n')
     else:

@@ -17,6 +17,7 @@
     <element xsi:type="archimate:BusinessProcess" name="Pizza Delivery Process" id="id-c82dc96261a44c008cf6cae3e449d346"/>
     <element xsi:type="archimate:BusinessProcess" name="Cooking Process" id="id-9fbc284e36a04852ac93381f2de166b5"/>
     <element xsi:type="archimate:BusinessRole" name="Cash Register Role" id="id-f65e837d0345490fb964c97a0ffd40a1"/>
+    <element xsi:type="archimate:BusinessRole" name="Cash Register Role" id="id-f65e837d0345490fb964c97a0ffd40a1"/>
     <element xsi:type="archimate:BusinessCollaboration" name="Delivery and Payment Collaboration" id="id-106a7c8719fc44cda09ac19275d3d851"/>
     <element xsi:type="archimate:BusinessCollaboration" name="Order Taking Collaboration" id="id-1028e8ce0cb2424e8fbdf4d25c6b4aca"/>
   </folder>
