@@ -4,8 +4,8 @@ A command line tool for inspecting archimate files.
 Archimate uses `lxml` for parsing archimate files, `console-menu` for producing the interactive menu, and `click` for command line parsing.
 
 ## Usage
-    ```$ python archibald.py --file fretardos-pizza.archimate
-
+    $ python archibald.py --file fretardos-pizza.archimate
+<pre>
   ┌─────────────────────────────────────────────────────────────────────────┐
   │                                                                         │
   │  Archibald                                                              │
@@ -21,8 +21,7 @@ Archimate uses `lxml` for parsing archimate files, `console-menu` for producing 
   │                                                                         │
   │                                                                         │
   └─────────────────────────────────────────────────────────────────────────┘
-  >> ```
-
+</pre>
 ## Installation
 
 ## Build from source
