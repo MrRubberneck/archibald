@@ -20,16 +20,20 @@ def is_correct_contents(file_contents):
 @click.option("--file", help="Specify the archimate file")
 def process_file(file):
     state.file_path = file
-    with open(state.file_path) as f:
-        file_contents = f.read()
-    if is_correct_extension(state.file_path):
-        if is_correct_contents(file_contents):
-            menu.main()
+    try:
+        with open(state.file_path) as f:
+            file_contents = f.read()
+        if is_correct_extension(state.file_path):
+            if is_correct_contents(file_contents):
+                menu.main()
 
+            else:
+                print("Invalid file contents")
         else:
-            print("Invalid file contents")
-    else:
-        print("Invalid file extension")
+            print("Invalid file extension")
+
+    except TypeError:
+        print("An error has occurred while reading the file. Has --file argument been passed?")
 
 
 if __name__ == '__main__':
